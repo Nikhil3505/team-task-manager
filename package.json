@@ -7,7 +7,7 @@
     "install-backend": "cd backend && npm install",
     "install-frontend": "cd frontend && npm install",
     "install-all": "npm run install-backend && npm run install-frontend",
-    "build-frontend": "cd frontend && npm run build",
+    "build-frontend": "cd frontend && CI=false GENERATE_SOURCEMAP=false npm run build",
     "start": "cd backend && npm start",
     "heroku-postbuild": "npm run install-all && npm run build-frontend",
     "render-build": "npm run install-all && npm run build-frontend && cd backend && node sync.js",

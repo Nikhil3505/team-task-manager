@@ -13,22 +13,20 @@ const TaskDetail = () => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get(`/tasks/${taskId}`);
+        setTask(response.data.data.task);
+        setError('');
+      } catch (err) {
+        setError('Failed to load task');
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchTask();
   }, [taskId]);
-
-  const fetchTask = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/tasks/${taskId}`);
-      setTask(response.data.data.task);
-      setError('');
-    } catch (err) {
-      setError('Failed to load task');
-      console.error('Error fetching task:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAddComment = async (e) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import api from '../utils/api';
 import './Tasks.css';
 
@@ -14,12 +14,16 @@ const Tasks = () => {
     status: ''
   });
 
-  useEffect(() => {
-    fetchTasks();
-    fetchProjects();
+  const fetchProjects = useCallback(async () => {
+    try {
+      const response = await api.get('/projects');
+      setProjects(response.data.data.projects);
+    } catch (err) {
+      console.error('Error fetching projects:', err);
+    }
   }, []);
 
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
       const queryParams = new URLSearchParams();
@@ -35,16 +39,12 @@ const Tasks = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.projectId, filters.status]);
 
-  const fetchProjects = async () => {
-    try {
-      const response = await api.get('/projects');
-      setProjects(response.data.data.projects);
-    } catch (err) {
-      console.error('Error fetching projects:', err);
-    }
-  };
+  useEffect(() => {
+    fetchTasks();
+    fetchProjects();
+  }, [fetchTasks, fetchProjects]);
 
   const handleFilterChange = (e) => {
     setFilters({

@@ -5,7 +5,7 @@ import NotificationBell from './NotificationBell';
 import './Layout.css';
 
 const Layout = () => {
-  const { user, logout, isAdmin } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 

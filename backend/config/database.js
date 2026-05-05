@@ -1,8 +1,13 @@
 require('dotenv').config();
 
-const productionConfig = process.env.DATABASE_URL
+let dbUrl = process.env.DATABASE_URL;
+if (dbUrl && dbUrl.startsWith('postgresql://')) {
+  dbUrl = dbUrl.replace('postgresql://', 'postgres://');
+}
+
+const productionConfig = dbUrl
   ? {
-      use_env_variable: 'DATABASE_URL',
+      url: dbUrl,
       dialect: 'postgres',
       logging: false,
       pool: {

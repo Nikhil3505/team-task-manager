@@ -4,6 +4,15 @@ const { sequelize } = require('./models');
 const syncDatabase = async () => {
   try {
     console.log('Connecting to database...');
+    // Only log metadata to avoid leaking credentials
+    if (process.env.DATABASE_URL) {
+      console.log('DATABASE_URL is present. Length:', process.env.DATABASE_URL.length);
+      if (process.env.DATABASE_URL.includes(' ')) {
+        console.warn('WARNING: DATABASE_URL contains spaces. This might cause issues.');
+      }
+    } else {
+      console.log('DATABASE_URL is not set.');
+    }
     await sequelize.authenticate();
     console.log('Connection established.');
 

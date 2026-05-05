@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import './TaskDetail.css';
@@ -12,21 +12,22 @@ const TaskDetail = () => {
   const [newComment, setNewComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get(`/tasks/${taskId}`);
-        setTask(response.data.data.task);
-        setError('');
-      } catch (err) {
-        setError('Failed to load task');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTask();
+  const fetchTask = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/tasks/${taskId}`);
+      setTask(response.data.data.task);
+      setError('');
+    } catch (err) {
+      setError('Failed to load task');
+    } finally {
+      setLoading(false);
+    }
   }, [taskId]);
+
+  useEffect(() => {
+    fetchTask();
+  }, [fetchTask]);
 
   const handleAddComment = async (e) => {
     e.preventDefault();

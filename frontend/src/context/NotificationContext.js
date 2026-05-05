@@ -75,7 +75,6 @@ export const NotificationProvider = ({ children }) => {
       value={{
         notifications,
         unreadCount,
-        loading,
         fetchNotifications,
         markAsRead,
         markAllAsRead,

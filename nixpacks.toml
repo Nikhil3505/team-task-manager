@@ -5,7 +5,7 @@ cmds = [
 ]
 
 [phases.setup]
-nixPkgs = ["nodejs", "npm"]
+nixPkgs = ["nodejs"]
 
 [start]
 cmd = "cd backend && npm start"

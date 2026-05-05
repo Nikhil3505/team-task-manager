@@ -11,6 +11,7 @@
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:drop": "npx sequelize-cli db:drop",
     "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate",
+    "db:sync": "node sync.js",
     "seed": "node seeders/seed.js"
   },
   "keywords": ["task-manager", "express", "postgresql", "sequelize", "jwt"],

@@ -1,9 +1,14 @@
-const { User, Project, ProjectMember, Task, RefreshToken } = require('../models');
+require('dotenv').config();
+const { User, Project, ProjectMember, Task, RefreshToken, sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
 
 const seed = async () => {
   try {
     console.log('Starting database seed...');
+
+    // Ensure connection is established
+    await sequelize.authenticate();
+    console.log('Database connection established.');
 
     // Clear existing data
     await RefreshToken.destroy({ where: {} });

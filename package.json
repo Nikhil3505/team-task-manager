@@ -1,23 +1,23 @@
 {
   "name": "team-task-manager",
   "version": "1.0.0",
-  "description": "Team Task Manager - Full Stack Task Management Application",
+  "description": "Full-stack Team Task Manager",
+  "main": "backend/server.js",
   "scripts": {
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "build-frontend": "cd frontend && npm run build",
     "start": "cd backend && npm start",
-    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
-    "install-deps": "cd backend && npm install && cd ../frontend && npm install"
+    "heroku-postbuild": "npm run install-all && npm run build-frontend",
+    "render-build": "npm run install-all && npm run build-frontend && cd backend && node sync.js",
+    "db:migrate": "cd backend && npx sequelize-cli db:migrate",
+    "db:seed": "cd backend && npm run seed",
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev-backend": "cd backend && npm run dev",
+    "dev-frontend": "cd frontend && npm start"
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "keywords": [
-    "task-manager",
-    "react",
-    "express",
-    "postgresql",
-    "railway"
-  ],
-  "author": "",
-  "license": "MIT"
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "team-task-manager",
+  "version": "1.0.0",
+  "description": "Team Task Manager - Full Stack Task Management Application",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "install-deps": "cd backend && npm install && cd ../frontend && npm install"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "task-manager",
+    "react",
+    "express",
+    "postgresql",
+    "railway"
+  ],
+  "author": "",
+  "license": "MIT"
+}
